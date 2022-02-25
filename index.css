@@ -1,0 +1,32 @@
+.content {
+  text-align: center;
+}
+
+.before, .after, #lucky {
+  text-align: center;
+  background-color:#fff;
+  border:1px solid red;
+  border-radius:50%;
+  height:20px;
+  width:20px;
+  display: inline-block
+}
+
+.win, #winlucky {
+  text-align: center;
+  background-color:#fff;
+  border:1px solid blue;
+  border-radius:50%;
+  height:20px;
+  width:20px;
+  display: inline-block
+}
+
+p {
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+
+footer {
+  padding-top: 10%;
+}

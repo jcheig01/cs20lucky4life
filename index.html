@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Lucky for Life</title>
+        <link rel="stylesheet" href="index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-color: burlywood;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Lucky for Life</h1>
+            <hr>
+        </header>
+        <article>
+            <section>
+                <div class="content">
+                    <p style="font-weight: bold;">My Pick Before Sorting</p>
+                    <div class="before" id="before1"></div>
+                    <div class="before" id="before2"></div>
+                    <div class="before" id="before3"></div>
+                    <div class="before" id="before4"></div>
+                    <div class="before" id="before5"></div>
+                    <p style="font-weight: bold;">My Pick After Sorting</p>
+                    <div class="after" id="after1"></div>
+                    <div class="after" id="after2"></div>
+                    <div class="after" id="after3"></div>
+                    <div class="after" id="after4"></div>
+                    <div class="after" id="after5"></div>
+                    <p style="font-weight: bold;">Lucky Ball</p>
+                    <div id="lucky"></div>
+                    <p style="font-weight: bold;">Winning Numbers</p>
+                    <div class="win" id="win1"></div>
+                    <div class="win" id="win2"></div>
+                    <div class="win" id="win3"></div>
+                    <div class="win" id="win4"></div>
+                    <div class="win" id="win5"></div>
+                    <p style="font-weight: bold;">Winning Lucky Ball</p>
+                    <div id="winlucky"></div>
+                    <p style="font-weight: bold;">Result</p>
+                    <p id="match"></p>
+                    <p id="result"></p>
+                    <p id="emoji" style="font-size:100px;">&#128522</p>
+               </div>
+            </section>
+        </article>
+        <aside>
+        </aside>
+        <footer>CS20 Assignment 5: Lucky for Life</footer>
+    </body>
+    <script language="javascript">
+        var my_arr = [];
+        var my_before = [];
+
+        while(my_arr.length < 5){
+            var num = randomIntFromInterval(1, 48);
+            if (my_arr.indexOf(num) === -1) {
+                my_arr.push(num);
+                my_before.push(num);
+            }
+        }
+
+        my_arr = my_arr.sort(function(a, b) {return a - b;});
+
+        var lucky = randomIntFromInterval(1, 18);
+        
+        var win_arr = [12, 15, 24, 35, 48];
+        var win_lucky = 3;
+
+        fiLL_div("before", my_before);
+        fiLL_div("after", my_arr);
+        document.getElementById("lucky").innerHTML = lucky;
+        fiLL_div("win", win_arr);
+        document.getElementById("winlucky").innerHTML = win_lucky;
+
+        var count = my_arr.reduce((a, c) => a + win_arr.includes(c), 0);
+        document.getElementById("match").innerHTML = count + " balls matched.";
+
+
+        var match = lucky === win_lucky;
+        if (match) {
+            document.getElementById("result").innerHTML = "Lucky Ball Matched!";
+        } else {
+            document.getElementById("result").innerHTML = "Lucky Ball Not Matched...";
+        }
+
+        
+        prize(count, match);
+
+
+        function randomIntFromInterval(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        }
+
+        function fiLL_div(cname, arr) {
+            for (var i=0; i<5; i++) {
+                document.getElementsByClassName(cname)[i].innerHTML = arr[i];
+            }
+        }
+
+
+        function prize(count, luckymatch) {
+            if (luckymatch) {
+                if (count == 5)
+                    document.getElementById("result").innerHTML += "<br/>You win $7,000 a WEEK for LIFE!";
+                else if (count == 4)
+                    document.getElementById("result").innerHTML += "<br/>You win $5,000";
+                else if (count == 3)
+                    document.getElementById("result").innerHTML += "<br/>You win $150";
+                else if (count == 2)
+                    document.getElementById("result").innerHTML += "<br/>You win $25";
+                else if (count == 1)
+                    document.getElementById("result").innerHTML += "<br/>You win $6";
+                else
+                    document.getElementById("result").innerHTML += "<br/>You win $4";
+            } else {
+                if (count == 5)
+                    document.getElementById("result").innerHTML += "<br/>You win $25,000 a YEAR for LIFE!";
+                else if (count == 4)
+                    document.getElementById("result").innerHTML += "<br/>You win $200";
+                else if (count == 3)
+                    document.getElementById("result").innerHTML += "<br/>You win $20";
+                else if (count == 2)
+                    document.getElementById("result").innerHTML += "<br/>You win $3";
+                else if (count == 1) {
+                    document.getElementById("result").innerHTML += "<br/>You win no prize...";
+                    document.getElementById("emoji").innerHTML = "&#128531";
+                }
+                else {
+                    document.getElementById("result").innerHTML += "<br/>You win no prize...";
+                    document.getElementById("emoji").innerHTML = "&#128531";
+                }
+            }
+        }
+
+
+    </script>
+</html>
